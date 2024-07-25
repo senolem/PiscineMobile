@@ -33,10 +33,11 @@ class Homepage extends StatefulWidget {
 }
 
 class _HomepageState extends State<Homepage> {
-  String expression = '';
+  String expression = '0';
   double result = 0;
   String resultString = '0';
   Parser p = Parser();
+  bool reset = true;
 
   void buttonCallback(String value) {
     if (value.isNotEmpty) {
@@ -46,14 +47,23 @@ class _HomepageState extends State<Homepage> {
       if (value == 'C') {
         if (expression.isNotEmpty) {
           expression = expression.substring(0, expression.length - 1);
+          if (expression.isEmpty) {
+            expression = '0';
+            reset = true;
+          }
         }
       } else if (value == 'AC') {
-          expression = '';
+          expression = '0';
           result = 0;
           resultString = '0';
+          reset = true;
       } else if (value == '=') {
         calculateExpression();
       } else {
+        if (reset) {
+          expression = '';
+          reset = false;
+        }
         expression += value;
       }
     });
