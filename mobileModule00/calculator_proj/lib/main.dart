@@ -111,17 +111,23 @@ class _HomepageState extends State<Homepage> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    AutoSizeText(
-                      expression,
-                      style: const TextStyle(fontSize: 20, color: Colors.white),
-                      maxLines: 2,
-                      textAlign: TextAlign.end
+                    Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 5.0, vertical: 2.0),
+                      child: AutoSizeText(
+                        expression,
+                        style: const TextStyle(fontSize: 20, color: Colors.white),
+                        maxLines: 2,
+                        textAlign: TextAlign.end
+                      )
                     ),
-                    AutoSizeText(
-                      resultString,
-                      style: const TextStyle(fontSize: 20, color: Colors.white),
-                      maxLines: 2,
-                      textAlign: TextAlign.end
+                    Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 5.0, vertical: 2.0),
+                      child: AutoSizeText(
+                        result.toString(),
+                        style: const TextStyle(fontSize: 20, color: Colors.white),
+                        maxLines: 2,
+                        textAlign: TextAlign.end
+                      ),
                     )
                   ]
                 )
