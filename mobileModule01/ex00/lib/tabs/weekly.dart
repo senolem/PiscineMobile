@@ -3,8 +3,15 @@ import 'package:weather_proj/enums/apptab.dart';
 
 class WeeklyTab extends StatefulWidget {
   final AppTab tab;
+  final String input;
+  final bool geolocationEnabled;
 
-  const WeeklyTab({super.key, required this.tab});
+  const WeeklyTab({
+    super.key,
+    required this.tab,
+    required this.input,
+    required this.geolocationEnabled
+  });
 
   @override
   WeeklyTabState createState() => WeeklyTabState();

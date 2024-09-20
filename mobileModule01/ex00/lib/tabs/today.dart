@@ -3,8 +3,15 @@ import 'package:weather_proj/enums/apptab.dart';
 
 class TodayTab extends StatefulWidget {
   final AppTab tab;
+  final String input;
+  final bool geolocationEnabled;
 
-  const TodayTab({super.key, required this.tab});
+  const TodayTab({
+    super.key,
+    required this.tab,
+    required this.input,
+    required this.geolocationEnabled
+  });
 
   @override
   TodayTabState createState() => TodayTabState();
