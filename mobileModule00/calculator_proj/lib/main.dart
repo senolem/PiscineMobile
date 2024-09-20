@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:math_expressions/math_expressions.dart';
 import 'dart:developer';
+import 'scrollable_text.dart';
 
 void main() {
   runApp(const MainApp());
@@ -15,7 +16,7 @@ class MainApp extends StatelessWidget {
     return MaterialApp(
       title: 'Calculator',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: const Color.fromARGB(255, 74, 71, 71)),
+        colorScheme: ColorScheme.fromSeed(seedColor: const Color.fromARGB(255, 72, 71, 74)),
         useMaterial3: true
       ),
       home: const Homepage(title: 'Calculator'),
@@ -86,12 +87,17 @@ class _HomepageState extends State<Homepage> {
   Expanded calcButton(String value, Color color) {
     return Expanded(
       child: TextButton(
-        onPressed: () => buttonCallback(value),
-        style: TextButton.styleFrom(
-          foregroundColor: color,
-          textStyle: const TextStyle(fontWeight: FontWeight.bold)
+        style: ButtonStyle(
+          backgroundColor: WidgetStateColor.transparent,
+          splashFactory: value.isEmpty ? NoSplash.splashFactory : null,
+          enableFeedback: value.isEmpty ? false : true,
+          overlayColor: value.isEmpty ? WidgetStateProperty.all(Colors.transparent) : null,
+          mouseCursor: value.isEmpty ? WidgetStateProperty.all(MouseCursor.defer) : null,
         ),
-        child: Text(value, style: const TextStyle(fontSize: 14))
+        onPressed: value.isEmpty ? null : () => buttonCallback(value),
+        child: Text(
+          value,
+          style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: color))
       )
     );
   }
@@ -103,25 +109,17 @@ class _HomepageState extends State<Homepage> {
       body: Column(
         children: [
           Expanded(
-            flex: 2,
+            flex: 4,
             child: Container(
               decoration: const BoxDecoration(color: Color.fromARGB(255, 55, 55, 55)),
               child: IntrinsicHeight(
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
+                    ScrollableTextWidget(expression: expression),
                     Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 5.0, vertical: 2.0),
-                      child: AutoSizeText(
-                        expression,
-                        style: const TextStyle(fontSize: 20, color: Colors.white),
-                        maxLines: 2,
-                        textAlign: TextAlign.end
-                      )
-                    ),
-                    Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 5.0, vertical: 2.0),
+                      padding: const EdgeInsets.symmetric(horizontal: 5.0, vertical: 10.0),
                       child: AutoSizeText(
                         result.toString(),
                         style: const TextStyle(fontSize: 20, color: Colors.white),
@@ -135,10 +133,10 @@ class _HomepageState extends State<Homepage> {
             )
           ),
           Expanded(
-            flex: 8,
+            flex: 6,
             child: Container(
               decoration: const BoxDecoration(color: Color.fromARGB(255, 74, 71, 71)),
-              padding: const EdgeInsets.all(10),
+              padding: const EdgeInsets.all(8),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
